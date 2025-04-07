@@ -15,9 +15,7 @@ resource "aws_security_group" "BastionSG" {
     protocol = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags = {
-    Name = "${var.name}-bastion-sg"
-  }
+  tags = var.tags
 }
 
 resource "aws_instance" "BastionHost" {
@@ -27,8 +25,6 @@ resource "aws_instance" "BastionHost" {
     vpc_security_group_ids = [aws_security_group.BastionSG.id]
     key_name = var.key_name
     associate_public_ip_address = true
-    tags = {
-      Name = "${var.name}-bastion-host"
-    }
+    tags = var.tags
     availability_zone = var.availability_zone
 }
